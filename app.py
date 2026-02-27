@@ -3,11 +3,11 @@ import streamlit as st
 from local_db import create_tables
 from ui_engine import load_ui, theme_selector
 
-# Initialize DB
+# Initialize local DB
 create_tables()
 
-# Load UI
-load_ui()
+# Load theme
+theme_choice = theme_selector()
 
-st.subheader("Welcome to Raunak Ultra ERP 🚀")
-st.write("This is your fully themed, mobile responsive ERP dashboard!")
+# Load main UI with navigation
+load_ui()
