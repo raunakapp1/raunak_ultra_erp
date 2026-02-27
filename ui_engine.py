@@ -1,42 +1,62 @@
 # ui_engine.py
 import streamlit as st
 
-# Predefined themes
+# Theme options
 THEMES = {
-    "Corporate Blue": {"primary": "#1E3A8A", "secondary": "#3B82F6"},
-    "Premium Purple": {"primary": "#6B21A8", "secondary": "#C084FC"},
-    "Dark Mode Premium": {"primary": "#111827", "secondary": "#6B7280"},
-    "Fresh Green Hospitality": {"primary": "#047857", "secondary": "#34D399"},
-    "Gradient Modern Ultra": {"primary": "#F43F5E", "secondary": "#FBBF24"}
+    "Corporate Blue": "#1E3A8A",
+    "Premium Purple": "#6B21A8",
+    "Dark Mode Premium": "#111827",
+    "Fresh Green Hospitality": "#15803D",
+    "Gradient Modern Ultra": "linear-gradient(90deg, #FF5F6D, #FFC371)"
 }
 
-# Current theme storage
-CURRENT_THEME = THEMES["Corporate Blue"]
-
 def theme_selector():
-    """
-    Show theme selector in sidebar and update CURRENT_THEME
-    """
-    global CURRENT_THEME
-    st.sidebar.title("🎨 Select Theme")
-    theme_name = st.sidebar.selectbox("Choose Theme:", list(THEMES.keys()))
-    CURRENT_THEME = THEMES[theme_name]
-    st.sidebar.markdown(f"Selected theme: **{theme_name}**")
-    return CURRENT_THEME
-
-def load_ui(title="Raunak Ultra ERP"):
-    """
-    Basic UI layout loader
-    """
-    theme = CURRENT_THEME
-    st.set_page_config(page_title=title, layout="wide")
-    st.markdown(
-        f"""
+    st.sidebar.title("🎨 Theme Selector")
+    theme_choice = st.sidebar.radio("Choose Theme:", list(THEMES.keys()))
+    color = THEMES[theme_choice]
+    
+    # Apply simple color to header/footer
+    st.markdown(f"""
         <style>
-        .css-18e3th9 {{background-color: {theme['secondary']} !important;}}
-        .css-1d391kg {{color: {theme['primary']} !important;}}
+        .stApp {{
+            background: {color};
+            color: white;
+        }}
+        .stSidebar {{
+            background: #f0f2f6;
+        }}
         </style>
-        """, unsafe_allow_html=True
-    )
-    st.title(title)
-    theme_selector()
+    """, unsafe_allow_html=True)
+    return theme_choice
+
+def load_ui():
+    st.sidebar.title("📂 Navigation")
+    menu = ["Dashboard", "Guests", "Staff", "Attendance", "Events", "Reports", "AI Insights"]
+    choice = st.sidebar.radio("Go to:", menu)
+    
+    st.header(f"Raunak Ultra ERP 🚀 - {choice}")
+    
+    # Placeholder content
+    if choice == "Dashboard":
+        st.subheader("📊 Dashboard")
+        st.write("This is where graphs, KPIs, and AI insights will appear.")
+    elif choice == "Guests":
+        st.subheader("👥 Guest Management")
+        st.write("Guest check-in, smart suggestions, and reports.")
+    elif choice == "Staff":
+        st.subheader("🧑‍💼 Staff Management")
+        st.write("Attendance, performance, and HR tasks.")
+    elif choice == "Attendance":
+        st.subheader("📝 Attendance System")
+        st.write("Track employee attendance and alerts.")
+    elif choice == "Events":
+        st.subheader("🎉 Event Management")
+        st.write("Manage hotel events, bookings, and schedules.")
+    elif choice == "Reports":
+        st.subheader("📑 Reports & Invoices")
+        st.write("Generate PDFs, Excel exports, and summaries.")
+    elif choice == "AI Insights":
+        st.subheader("🤖 AI Predictions & Alerts")
+        st.write("Smart suggestions, insights, and anomaly detection.")
+    else:
+        st.write("Coming Soon...")
