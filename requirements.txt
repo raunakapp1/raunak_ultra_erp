@@ -1,0 +1,12 @@
+# requirements.txt
+
+# sqlite3 is standard, no need to install via pip
+supabase              # Supabase integration
+requests              # HTTP calls (Supabase / APIs)
+pandas                # Data handling (reports, attendance)
+matplotlib            # Graphs / dashboard
+fpdf2                 # PDF invoice generator
+openpyxl              # Excel export
+flask                 # Optional if you convert to web UI
+flask-login           # Optional for web authentication
+python-dotenv         # Environment variables
